@@ -17,6 +17,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Download Gradle Wrapper JAR
+      run: |
+        mkdir -p gradle/wrapper
+        cd gradle/wrapper
+        wget https://services.gradle.org/distributions/gradle-8.5-bin.zip
+        unzip gradle-8.5-bin.zip
+        mv gradle-8.5/lib/gradle-wrapper.jar.
+        rm -rf gradle-8.5 gradle-8.5-bin.zip
+        cd ../../..
+
     - name: Make Gradle executable
       run: chmod +x gradlew
 
