@@ -17,18 +17,17 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Download Gradle Wrapper JAR
-      run: |
-        mkdir -p gradle/wrapper
-        cd gradle/wrapper
-        wget -q https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar
-        cd ../../..
-
     - name: Make Gradle executable
       run: chmod +x gradlew
 
+    - name: Debug - Check files
+      run: |
+        ls -la
+        ls -la gradle/wrapper/ || echo "gradle/wrapper not found"
+        ls -la app/ || echo "app not found"
+
     - name: Build debug APK
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug --stacktrace
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
