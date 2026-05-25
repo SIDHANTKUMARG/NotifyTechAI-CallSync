@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ═══════════════════════════════════════
+         PERMISSIONS
+         ═══════════════════════════════════════ -->
+
+    <!-- Read SIM call logs (outgoing, incoming, missed) -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
+    <!-- Detect phone state changes (ringing, off-hook, idle) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Send call data to Apps Script webhook -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Keep network alive during sync -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- WorkManager — needed to schedule background sync -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Foreground service for reliable background detection -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NotifyTechAI">
+
+        <!-- ─────────────────────────────────
+             MAIN ACTIVITY
+             ───────────────────────────────── -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- ─────────────────────────────────
+             CALL STATE BROADCAST RECEIVER
+             Listens for phone state changes.
+             exported=true → system can reach it.
+             ───────────────────────────────── -->
+        <receiver
+            android:name=".CallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ─────────────────────────────────
+             BOOT RECEIVER
+             Re-registers listener after reboot.
+             ───────────────────────────────── -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ─────────────────────────────────
+             FOREGROUND SERVICE
+             Keeps sync alive on aggressive OEMs.
+             ───────────────────────────────── -->
+        <service
+            android:name=".CallSyncService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

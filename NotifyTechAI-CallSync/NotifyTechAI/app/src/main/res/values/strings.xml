@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NotifyTechAI</string>
+    <string name="permission_rationale">
+        This app needs Call Log and Phone State permissions to detect
+        when a SIM call ends and automatically sync the duration to CRM.
+    </string>
+    <string name="sync_active">✅ Call sync is active</string>
+    <string name="sync_inactive">⚠️ Call sync is inactive — grant permissions</string>
+</resources>

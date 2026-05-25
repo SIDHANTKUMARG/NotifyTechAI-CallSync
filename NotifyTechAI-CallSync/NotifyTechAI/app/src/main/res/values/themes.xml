@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.NotifyTechAI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#1A1A2E</item>
+        <item name="colorPrimaryVariant">#0077B6</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#0077B6</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
+
+    <color name="colorPrimary">#1A1A2E</color>
+    <color name="colorPrimaryVariant">#0077B6</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+</resources>
